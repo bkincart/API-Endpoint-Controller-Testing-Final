@@ -30,7 +30,7 @@ RSpec.describe Api::V1::CampersController, type: :controller do
   end
 
   describe "POST#create" do
-    let!(:new_camper) { FactoryGirl.create(:camper, name: "Flit") }
+    let!(:new_camper) { FactoryBot.create(:camper, name: "Flit") }
     let!(:camper_data) { { name: new_camper.name, campsite_id: new_camper.campsite_id }.to_json }
 
     it "should create a new camper" do

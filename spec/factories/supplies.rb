@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :supply do
     name "Dozen Eggs"
   end
