@@ -4,9 +4,14 @@ RSpec.describe Api::V1::CampersController, type: :controller do
   # let!(:campsite) { Campsite.create(name: "Test Campsite") }
   # let!(:camper_1) { Camper.create(name: "Pocahontas", campsite: campsite) }
   # let!(:camper_2) { Camper.create(name: "Meeko", campsite: campsite) }
-  before(:each) { create(:camper, name: "Pocahontas") }
-  before(:each) { create_list(:camper, 5) }
-  before(:each) { create(:camper, name: "Meeko") }
+  # before(:each) { create(:camper, name: "Pocahontas") }
+  # before(:each) { create_list(:camper, 5) }
+  # before(:each) { create(:camper, name: "Meeko") }
+  before(:each) do
+    create(:camper, name: "Pocahontas")
+    create_list(:camper, 5)
+    create(:camper, name: "Meeko")
+  end
 
   describe "GET#index" do
     it "should return a list of all the campers" do
@@ -29,11 +34,11 @@ RSpec.describe Api::V1::CampersController, type: :controller do
     let!(:camper_data) { { name: new_camper.name, campsite_id: new_camper.campsite_id }.to_json }
 
     it "should create a new camper" do
-      expect{ post(:create, camper_data) }.to change{ Camper.count }.by 1
+      expect{ post(:create, body: camper_data) }.to change{ Camper.count }.by 1
     end
 
     it "should return a json with the new camper data" do
-      post(:create, camper_data)
+      post(:create, body: camper_data)
       returned_json = JSON.parse(response.body)
 
       expect(response.status).to eq 200
